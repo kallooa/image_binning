@@ -1,0 +1,74 @@
+<html>
+   <head>
+      <script type="text/javascript" src="../public/libs/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="../public/dist/sweetalert.min.js"></script>
+      <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="../public/dist/sweetalert.css">
+      <style>
+         .row {
+         margin-top: 2%;
+         }
+         #video {
+         max-width: 700px;
+         max-height: 400px;
+         }
+         .buttons {
+            text-align: center;
+            margin-top: 20px;
+         }
+         .btn {
+           font-family: Arial;
+           color: #ffffff;
+           font-size: 20px;
+           background: #3498db;
+           padding: 10px 20px 10px 20px;
+           text-decoration: none;
+           margin: 20px;
+         }
+         .btn:hover {
+           background: #3cb0fd;
+           background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+           text-decoration: none;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-4">
+               <div id="greeting_text">
+                  <br><br>
+                  <p>Dear Colleagues: </p>
+                  <br>
+                  <p> We are now in the final stages of preparing the survey for our anatomy standardization efforts.</p> 
+                  <p>On the right, you can see a demonstration of our survey tool, which can be used to agree with terms, disagree with terms, or add new terms if necessary. This survey widget was designed to be as efficient and easy to use as possible.</p>
+                  <p>I hope that you can collaborate on this project to help resolve descrepancies in anatomical terminology. Please indicate your decision using the buttons below.</p>
+                  <br>
+                  <p>Thank you,</p> <p>- Allan Halpern &amp; Team</p>
+               </div>
+            </div>
+            <div class="col-md-8">
+               <h3>Preview: </h3>
+               <video id="video" muted="" class="gifyt-player gifyt-embed" preload="auto" loop="loop" autoplay="autoplay" playsinline="">
+                  <source src="https://j.gifs.com/jq05EW.mp4" type="video/mp4">
+               </video>
+            </div>
+         </div>
+         <div class="row">
+            <div class="buttons">
+               <button class="btn" id="yesbutton">Will Participate</button>
+               <button class="btn" id="nobutton">Will Not Participate</button>
+            </div>
+         </div>
+      </div>
+      <script>
+      $(document).ready(function() {
+         $('#yesbutton')[0].onclick = function() {sweetAlert('Thank you! Your response has been recorded.')};
+      });
+      </script>
+   </body>
+</html>

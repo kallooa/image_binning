@@ -1,0 +1,28 @@
+extends layout
+
+block body
+
+  #welcome.jumbotron
+    h1 Welcome to the EASY Data Contribution Tool
+    p.lead.
+      <br/>
+      <br/>
+      Thank you for your interest in contributing to EASY! All contributions are subject to the ISIC Archive <a href="https://isic-archive.com/#termsOfUse" target="_blank">Terms of Use </a> and <a href="https://isic-archive.com/#privacyPolicy" target="_blank"> Privacy Policy </a>. 
+      <br/>
+      <br/>
+      <u>NOTE</u>: Please ensure that your image file names contain no PHI. A guide on PHI can be found <a href="https://www.hipaa.com/hipaa-protected-health-information-what-does-phi-include/" target="_blank"> here</a>.
+
+    div.buttondiv
+      p.bigbutton
+        a.bigbutton.btn.btn-lg.btn-danger(href='/register', role='button') Register
+      p.bigbutton
+        a.bigbutton.btn.btn-lg.btn-danger(href='/login', role='button') Login
+  script.
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    if (!isChrome) {
+      alert("This website (www.isicdataupload.com) is best viewed in Google Chrome. Changing browsers is strongly recommended.")
+    }
+
+  include footer.jade
+  div &nbsp;
+  div &nbsp;

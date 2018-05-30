@@ -1,0 +1,524 @@
+doctype html
+html
+  head
+    title EASY Data upload
+    link(rel='stylesheet', type='text/css', href='stylesheets/style.css')
+    link(rel='stylesheet', type='text/css', href='libs/dropzone/downloads/css/dropzone.css')
+    script(type='text/javascript', src='libs/jquery/dist/jquery.js')
+    script(type='text/javascript', src='libs/dropzone/downloads/dropzone.js')
+    script(type='text/javascript', src='js/jquery.simplemodal.1.4.4.min.js')
+    script(src='libs/socket.io.js')
+    script(src='js/download2.js')
+    script(src='dist/sweetalert.min.js')
+    link(rel='stylesheet', type='text/css', href='dist/sweetalert.css')
+    script(src='js/jquery.nice-select.js')
+    link(rel='stylesheet', type='text/css', href='css/nice-select.css')
+    script(src='js/papaparse.js')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    style.
+      .modal-header, h4, .close {
+        background-color: #5cb85c;
+        color:white !important;
+        text-align: center;
+        font-size: 30px;
+      }
+      .modal-footer {
+        background-color: #f9f9f9;
+      }
+      button.dataset_info {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      table p {
+        margin: 0px;
+      }
+      table input {
+        padding: 2px !important;
+        padding-left: 17px !important;
+        font-size: 14px !important;
+      }
+  body(style='box-sizing: content-box !important;')
+    script.
+      var u69614;
+      var datasetname;
+      var licensetype;
+      var attribution;
+      var institution = localStorage.getItem("institution");
+      var rights_to_data;
+      var chosen_image_type = '';
+      var chosen_dx_confirm_type = '';
+      var thickness_forgotten = false;
+      var dx_forgotten = false;
+      var filenameArray = Array();
+      var socket = io();//.connect('http://localhost:3000');
+      socket.on("csvdata", function(thefiledata) {
+        csv = Papa.unparse(thefiledata);
+        download(csv, "myisicdata.csv", "text/csv");
+      });
+    h1(style='font-family: Tahoma; text-align:left; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-weight: 100; background-color: #004f80; color: #fff; width:100%; height:100%; margin-left:-30px; margin-top: -10px; box-sizing: content-box !important;') EASY Data Upload
+    .half-one
+      #simpleUpload
+        .meter
+          span.roller
+        #myDropzone
+          form#myDropzone.dropzone(action='/upload')  
+        button#remove-all Remove file
+        button#csv-request Request CSV
+    .half-two
+      table(style='width:100%')
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Filename:
+              th
+                input.inputbox#filename(style='align-items:left; margin-left:-18px;', type='text', name='age', maxlength='2', readonly='')
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Age:
+              th
+                input.inputbox#agebox(style='margin-left:-18px;', type='text', name='age', maxlength='2', onkeypress='return isNumberKey(event)')
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Sex: 
+              th
+                span(align='center')
+                  select#sex_dropdown(style='', name='sex_dropdown1')
+                    option(value='') 
+                    option(value='male') Male
+                    option(value='female') Female
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Image Type: 
+              th
+                span(align='left')
+                  select#imagetype_dropdown(style='', name='imagetype_dropdown1')
+                    option(value='') 
+                    option(value='contact polarized dermoscopy') Contact Polarized Dermoscopy
+                    option(value='non contact polarized dermoscopy') Non-contact Polarized Dermoscopy
+                    option(value='contact non polarized dermoscopy') Contact Non-Polarized Dermoscopy
+                    option(value='macroscopic') Non-contact NPD (Macroscopic)
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left;')
+              | Dx Confirm Type: 
+              th
+                span(align='left')
+                  select#confirmtype_dropdown(style='transform: translate(14%); ', name='confirmtype_dropdown1')
+                    option(value='') 
+                    option(value='histopathology') Histopathology
+                    option(value='serial imaging showing no change') Serial Imaging Showing No Change
+                    option(value='single image expert consensus') Expert Consensus (3 raters)
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Diagnosis: 
+              th
+                span(align='left')
+                  select#diagnosis_dropdown(style='transform: translate(33%); ', name='diagnosis_dropdown1', onchange='dxLogic(this.value);')
+                    option(value='') 
+                    option(value='atypical melanocytic proliferation') AMP
+                    option(value='AIMP') AIMP
+                    option(value='melanoma') Melanoma
+                    option(value='melanoma metastasis') Melanoma Metastasis
+                    option(value='nevus') Nevus
+                    option(value='other') Other
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Benign/Malignant: 
+              th
+                span(align='left')
+                  select#benmal_dropdown(style='transform: translate(12%); ', name='benmal_dropdown1', onchange='benmalLogic(this.value);')
+                    option(value='') 
+                    option(value='benign') Benign
+                    option(value='malignant') Malignant
+                    option(value='indeterminate') Indeterminate
+                    option(value='indeterminate/benign') Indeterminate favoring benign
+                    option(value='indeterminate/malignant') Indeterminate favoring malignant
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Nevus Type: 
+              th
+                span(align='left')
+                  select#nevustype_dropdown(style='transform: translate(28%); ', name='nevustype_dropdown1')
+                    option(value='') 
+                    option(value='blue') Blue
+                    option(value='combined') Combined
+                    option(value='nevus nos') Nevus NOS
+                    option(value='deep penetrating') Deep Penetrating
+                    option(value='halo') Halo
+                    option(value='recurrent') Persistent/Recurrent
+                    option(value='pigmented spindle cell of reed') Pigmented Spindle Cell of Reed
+                    option(value='plexiform spindle cell') Plexiform Spindle Cell
+                    option(value='special site') Special Site
+                    option(value='spitz') Spitz
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Camera Type:
+              th
+                input.inputbox#camera_type_box(style='margin-left:10px; padding-left: 0px;', type='text', name='camera_type_box')
+        tr.blank_row
+          th
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left;text-decoration: underline;') Melanoma Specific:
+        tr.blank_row
+          th  
+        tr
+          th  
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Melanoma Class: 
+              th
+                span(align='left')
+                  select#melclass_dropdown(style='transform: translate(14%);  ', name='melclass_dropdown1', onchange='melClassLogic(this.value);')
+                    option(value='') 
+                    option(value='melanoma in situ') Melanoma In Situ
+                    option(value='invasive melanoma') Invasive Melanoma
+                    option(value='recurrent/persistent, in situ') Recurrent/persistent, In Situ
+                    option(value='recurrent/persistent, invasive') Recurrent/persistent, Invasive
+                    option(value='melanoma nos') Melanoma NOS
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Melanoma Subtype: 
+              th
+                span(align='left')
+                  select#meltype_dropdown(style='transform: translate(7%);  ', name='meltype_dropdown1')
+                    option(value='') 
+                    option(value='ssm') Superficial Spreading
+                    option(value='nodular') Nodular
+                    option(value='lentigo_maligna') Lentigo Maligna Melanoma
+                    option(value='spindle_cell') Spindle Cell Features
+                    option(value='nos') Not Otherwise Specified
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Mitotic Index: 
+              th
+                span(align='left')
+                  select#mitotic_dropdown(style='transform: translate(26%);', name='mitotic_dropdown1')
+                    option(value='') 
+                    option(value='0/mm^2') 0/mm^2
+                    option(value='<1/mm^2') &lt;1/mm^2
+                    option(value='1/mm^2') 1/mm^2
+                    option(value='2/mm^2') 2/mm^2
+                    option(value='3/mm^2') 3/mm^2
+                    option(value='4/mm^2') 4/mm^2
+                    option(value='>5/mm^2') &gt;5/mm^2
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Ulcer: 
+              th
+                span(align='left')
+                  select#ulcer_dropdown(style='transform: translate(47%); ', name='ulcer_dropdown1')
+                    option(value='') 
+                    option(value='yes') Yes
+                    option(value='no') No
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Thickness (in millimeters):
+              th
+                input.inputbox#thickness_box(style='margin-left:10px; padding-left: 0px;', type='text', name='mel_thickness', maxlength='4', onkeypress='return isNumberKey(event)', onchange='thickcatLogic(this.value);')
+        tr
+          th
+            p(style='float:left; margin-top: 10px; text-align: left')
+              | Thickness (categorical): 
+              th
+                span(align='left')
+                  select#thickcat_dropdown(style='transform: translate(26%);', name='thickcat_dropdown1')
+                    option(value='')
+                    option(value='less than 0.8') &lteq; 0.8mm
+                    option(value='more than 0.8') &gt; 0.8mm
+                    option(value='more than 1') &gt; 1mm
+                    option(value='more than 2') &gt; 2mm
+                    option(value='more than 3') &gt; 3mm
+                    option(value='more than 4') &gt; 4mm
+                    option(value='more than 5') &gt; 5mm
+                    option(value='not applicable') Not Applicable
+                    option(value='unknown') Unknown
+        tr
+          th
+          th
+            button#submit-all Submit
+
+    script(type='text/javascript').
+      Dropzone.options.myDropzone = {
+          // Prevents Dropzone from uploading dropped files immediately
+          autoProcessQueue: false,
+          init: function() {
+              var submitButton = document.querySelector("#submit-all")
+              var removeButton = document.querySelector("#remove-all")
+              var csvButton = document.querySelector('#csv-request')
+              myDropzone = this; // closure
+              submitButton.addEventListener("click", function() {
+                  chosen_image_type = document.getElementById("imagetype_dropdown").value;
+                  chosen_dx_confirm_type = document.getElementById("confirmtype_dropdown").value;
+                  pt_age = document.getElementById("agebox").value;
+                  thickness_val = parseFloat(document.getElementById("thickness_box").value);
+                  file_in_array = filenameArray.indexOf(document.getElementById("filename").value);
+                  if (pt_age > 85) {pt_age = 85;}
+                  if (thickness_val > 99) {sweetAlert("Alert", "Please enter a melanoma thickness value less than 99. If exact thickness is unknown use categorical thickness.", "error");}
+                  if (isNaN(thickness_val) && document.getElementById("thickcat_dropdown").value=='' && (document.getElementById("diagnosis_dropdown").value=="melanoma") || document.getElementById("diagnosis_dropdown").value=="melanoma metastasis") {sweetAlert("Alert", "Please enter a value for thickness. If thickness is unknown, please select 'unknown' in the categorical thickness dropdown.", "error"); thickness_forgotten=true;}              
+                  if (document.getElementById("filename").value == "") {sweetAlert("You forgot to upload a file!", "Please upload an image and try again", "error");}
+                  if (document.getElementById("diagnosis_dropdown").value == "") {dx_forgotten = true; sweetAlert("You forgot to select a diagnosis!", "If diagnosis is not known please select 'unknown'.", "error");}
+                  if (file_in_array == -1 && (thickness_val<99 || isNaN(thickness_val)) && document.getElementById("filename").value != "" && !thickness_forgotten && !dx_forgotten) {
+                    var dataObj = {
+                        "user": u69614,
+                        "institution": institution,
+                        "dataset_name": datasetname,
+                        "date_submitted": Date(),
+                        "license_type": licensetype,
+                        "attribution": attribution,
+                        "filename": document.getElementById("filename").value,
+                        "age": pt_age,
+                        "sex": document.getElementById("sex_dropdown").value,
+                        "image_type": document.getElementById("imagetype_dropdown").value,
+                        "diagnosis_confirm_type": document.getElementById("confirmtype_dropdown").value,
+                        "diagnosis": document.getElementById("diagnosis_dropdown").value,
+                        "benign_malignant": document.getElementById("benmal_dropdown").value,
+                        "nevus_type": document.getElementById("nevustype_dropdown").value,
+                        "mel_class": document.getElementById("melclass_dropdown").value,
+                        "mel_type": document.getElementById("meltype_dropdown").value,
+                        "mel_mit": document.getElementById("mitotic_dropdown").value,
+                        "mel_thick": thickness_val,
+                        "mel_thick_cat": document.getElementById("thickcat_dropdown").value,
+                        "ulcer": document.getElementById("ulcer_dropdown").value,
+                        "camera_type": document.getElementById("camera_type_box").value
+                    };
+                    clearAll();
+                    myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+                    filenameArray.push(document.getElementById("filename").value);
+                    socket.emit("dataFromUser", dataObj);
+                  }
+              });
+              removeButton.addEventListener("click", function() {
+                  myDropzone.removeAllFiles(); // Tell Dropzone to process all queued files.
+                  clearAll();
+                  document.getElementById("filename").value = "";
+              });
+              csvButton.addEventListener("click", function() {
+                  csv_request_data = {"user": u69614, "dataset_name": datasetname};
+                  socket.emit("csv_request", csv_request_data);
+              })
+              this.on("addedfile", function(file) {
+                  document.getElementById("filename").value = document.getElementsByClassName("dz-filename")[0].innerText;
+                  if (filenameArray.indexOf(document.getElementById("filename").value) != -1) {
+                    sweetAlert("File already uploaded!", "Please click Remove File and proceed with your next image", "error");
+                  }
+              });
+              // Execute when file uploads are complete
+              this.on("complete", function() {
+                  // If all files have been uploaded
+                  if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
+                      var _this = this;
+                      _this.removeAllFiles(); // Remove all files
+                      document.getElementById("filename").value = "";
+                  }
+              });
+          }
+      };
+    script(type='text/javascript').
+      function clearAll() {
+        thickness_forgotten = false;
+        dx_forgotten = false;
+        document.getElementById("sex_dropdown").value = "";
+        document.getElementById("agebox").value = "";
+        document.getElementById("thickness_box").value = "";
+        document.getElementById("confirmtype_dropdown").value = chosen_dx_confirm_type;
+        document.getElementById("diagnosis_dropdown").selectedIndex = -1;
+        document.getElementById("imagetype_dropdown").value = chosen_image_type;
+        document.getElementById("benmal_dropdown").selectedIndex = -1;
+        document.getElementById("nevustype_dropdown").selectedIndex = -1;
+        document.getElementById("melclass_dropdown").selectedIndex = -1;
+        document.getElementById("meltype_dropdown").selectedIndex = -1;
+        document.getElementById("mitotic_dropdown").selectedIndex = -1;
+        document.getElementById("thickcat_dropdown").selectedIndex = -1;
+        document.getElementById("ulcer_dropdown").value = -1;
+        document.getElementById("camera_type_box").value = "";
+        $('select').niceSelect('update');
+
+      }
+    script(type='text/javascript').
+      function checkUser() {
+          f = $.getJSON("/api/1a2f164967f55325", function(data) {
+              if (data.hasOwnProperty('username')) {
+                  u69614 = data.username;
+                  console.log('Username: ' + u69614);
+                  return u69614;
+              }
+          });
+          return f;
+      }
+      function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31 
+          && (charCode < 48 || charCode > 57))
+           return false;
+
+        return true;
+      }
+      function thickcatLogic(stringValue) {
+        numValue = parseFloat(stringValue);
+        if (numValue <= 0.8) {document.getElementById("thickcat_dropdown").value = "less than 0.8";}
+        if (numValue > 0.8 && numValue<=1) {document.getElementById("thickcat_dropdown").value = "more than 0.8";}
+        if (numValue > 1 && numValue<=2) {document.getElementById("thickcat_dropdown").value = "more than 1";}  
+        if (numValue > 2 && numValue<=3) {document.getElementById("thickcat_dropdown").value = "more than 2";}
+        if (numValue > 3 && numValue<=4) {document.getElementById("thickcat_dropdown").value = "more than 3";}
+        if (numValue > 4 && numValue<=5) {document.getElementById("thickcat_dropdown").value = "more than 5";}
+        if (numValue > 5) {document.getElementById("thickcat_dropdown").value = "more than 5";}    
+        $('select').niceSelect('update');
+      }
+      function melClassLogic(value) {
+        if (value == "melanoma in situ") {
+          document.getElementById('thickness_box').value = "0";
+        }
+      }
+      function benmalLogic(value) {
+        if (value == "benign") {
+          document.getElementById('thickness_box').value = "";
+          document.getElementById('thickcat_dropdown').value = "not applicable";
+          document.getElementById("melclass_dropdown").value = 'not applicable';
+          document.getElementById("meltype_dropdown").value = 'not applicable';
+          document.getElementById("mitotic_dropdown").value = 'not applicable';
+          document.getElementById("ulcer_dropdown").value = 'not applicable';
+          $('select').niceSelect('update');
+        }
+      }
+      function dxLogic(value) {
+        if (value != "melanoma" || value != "melanoma metastasis") {
+            document.getElementById("melclass_dropdown").value = 'not applicable';
+            document.getElementById("meltype_dropdown").value = 'not applicable';
+            document.getElementById("mitotic_dropdown").value = 'not applicable';
+            document.getElementById("ulcer_dropdown").value = 'not applicable';
+            document.getElementById("benmal_dropdown").value = '';
+            document.getElementById("thickcat_dropdown").value = "not applicable";
+            $('select').niceSelect('update');
+        }
+        if (value == "melanoma" || value == "melanoma metastasis") {
+            document.getElementById("benmal_dropdown").value = 'malignant';
+            document.getElementById("melclass_dropdown").value = '';
+            document.getElementById("meltype_dropdown").value = '';
+            document.getElementById("mitotic_dropdown").value = '';
+            document.getElementById("ulcer_dropdown").value = '';
+            document.getElementById("nevustype_dropdown").value = 'not applicable';
+            document.getElementById("thickcat_dropdown").value = "";
+            $('select').niceSelect('update');
+        }
+        if (value == "nevus") {
+            document.getElementById("benmal_dropdown").value = 'benign';
+            document.getElementById("melclass_dropdown").value = 'not applicable';
+            document.getElementById("meltype_dropdown").value = 'not applicable';
+            document.getElementById("mitotic_dropdown").value = 'not applicable';
+            document.getElementById("ulcer_dropdown").value = 'not applicable';
+            document.getElementById("nevustype_dropdown").value = '';
+            document.getElementById('thickness_box').value = "";
+            document.getElementById("thickcat_dropdown").value = "not applicable";
+            $('select').niceSelect('update');
+        }
+        if (value != "nevus") {
+            document.getElementById("nevustype_dropdown").value = 'not applicable';
+            $('select').niceSelect('update');
+        }        
+      }
+    script(type='text/javascript').
+      $('select').niceSelect();
+      $(document).ready(function() {
+          //$('select').prettyDropdown({height: 16});
+          checkUser()
+      });
+    #myModal.modal.fade(role='dialog')
+      .modal-dialog
+        // Modal content
+        .modal-content
+          .modal-header(style='padding:35px 50px;')
+            //- button.close(type='button', data-dismiss='modal') ×
+            h4
+              span.glyphicon.glyphicon-lock
+              |  Dataset Info
+          .modal-body(style='padding:20px 50px;')
+            div#errortext(style='padding:20px 150px; align: center; color: red; font-size: 18px;')
+            form(role='form')
+              .form-group
+                label(for='usrname')
+                  span.glyphicon.glyphicon-user
+                  |  Dataset Name
+                input#datasetname.form-control(type='text', placeholder='Enter name for this dataset')
+              .form-group
+                label(for='psw')
+                  span.glyphicon.glyphicon-eye-open
+                  |  License type
+                select#licensetype.form-control()
+                  option(value='cc0') CC-0 (No Restrictions)
+                  option(value='ccby') CC-BY (Attribution)
+                  option(value='ccbync') CC-BY-NC (Attribution-NonCommercial)
+              .form-group
+                label(for='psw')
+                  span.glyphicon.glyphicon-eye-open
+                  |  Attribution
+                input#attribution.form-control(type='text', placeholder='Enter Anonymous or your Institution/Team/Group')
+              .checkbox
+                label
+                   input(type='checkbox', id='checkbox1', value='', checked='Agreed')
+                   | I confirm that I am the owner of these data and/or have the rights to submit to ISIC Archive
+              button.dataset_info(type="button", onclick='check_dataset_info();')
+                |  Submit
+          .modal-footer
+              //- button.btn.btn-danger.btn-default.pull-left(type='submit', data-dismiss='modal')
+              //-   span.glyphicon.glyphicon-remove
+              //-   |  Cancel
+    script.
+      $(document).ready(function(){
+        $("#myModal").modal({backdrop: 'static', keyboard: false});
+      });
+      function check_dataset_info(value) {
+        datasetname = document.getElementById('datasetname').value;
+        licensetype = document.getElementById('licensetype').value;
+        attribution = document.getElementById('attribution').value;
+        rights_to_data = document.getElementById('checkbox1').checked;
+        if (datasetname == "" || licensetype == "" || attribution == "") {
+          document.getElementById('errortext').innerHTML = "Please enter all fields!";
+        } else {
+          console.log('close');
+          $("#myModal").modal('hide');
+          datasetInfoObj = {
+            "user": u69614,
+            "institution": institution,
+            "date_submitted": Date(),
+            "dataset_name": datasetname,
+            "license_type": licensetype,
+            "attribution": attribution,
+            "rights_to_data": rights_to_data
+          }
+          socket.emit("dataset_info", datasetInfoObj);
+        }
+      }

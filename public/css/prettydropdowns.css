@@ -1,0 +1,143 @@
+.prettydropdown {
+  position: relative;
+  min-width: 72px; /* 70px + borders */
+  display: inline;
+  margin-left: 0px;
+  transform: translate(50%);
+}
+.prettydropdown.loading {
+  min-width: 0;
+}
+.prettydropdown > ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  border: 1px solid #a9a9a9;
+  box-sizing: content-box;
+  color: #000;
+  cursor: pointer;
+  font: normal 15px Tahoma, sans-serif;
+  list-style-type: none;
+  margin-left: 0px;
+  padding: 0;
+  text-align: left;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+  z-index: auto;
+}
+.prettydropdown.loading > ul {
+  visibility: hidden;
+  white-space: nowrap;
+}
+.prettydropdown > ul:focus, .prettydropdown > ul:hover {
+  border-color: #7f7f7f;
+}
+.prettydropdown > ul.active {
+  width: auto;
+  max-height: none !important;
+  border-color: #1e90ff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 2;
+}
+.prettydropdown > ul.active:focus {
+  outline: none;
+}
+.prettydropdown > ul.active.reverse {
+  top: auto;
+  bottom: 0;
+}
+.prettydropdown > ul > li {
+  position: relative;
+  width: 250px;
+  height: 20px; /* 50px - borders */
+  box-sizing: border-box;
+  display: none;
+  line-height: 16px; /* 50px - borders */
+  margin: 0;
+  padding-left: 0.8rem;
+  overflow: hidden;
+}
+.prettydropdown.loading > ul > li {
+  min-width: 0;
+  display: block;
+  padding-right: 0.8rem;
+}
+.prettydropdown > ul.changing > li {
+  color: transparent;
+}
+.prettydropdown > ul > li:first-child, .prettydropdown > ul.active > li {
+  display: block;
+}
+.prettydropdown > ul.active > li:hover, .prettydropdown > ul.active > li.hover, .prettydropdown > ul.active > li:first-child:hover:after {
+  background: #1e90ff;
+  color: #fff;
+}
+.prettydropdown > ul.active > li.nohover {
+  background: inherit !important;
+  color: inherit !important;
+}
+.prettydropdown > ul.active > li.hover:before, .prettydropdown > ul.active > li.nohover:after {
+  border-top-color: #fff !important;
+}
+.prettydropdown > ul.active > li.hover:after, .prettydropdown > ul.active > li.nohover:before {
+  border-top-color: #1e90ff !important;
+}
+.prettydropdown.arrow > ul > li.selected:before, .prettydropdown.arrow > ul > li.selected:after {
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  right: 8px;
+  height: 16px;
+  border: 8px solid transparent; /* Arrow size */
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  margin: auto;
+}
+.prettydropdown.arrow.small > ul > li.selected:before, .prettydropdown.arrow.small > ul > li.selected:after {
+  top: 4px;
+  height: 8px;
+  border-width: 4px;
+}
+.prettydropdown.arrow > ul > li.selected:before {
+  border-top-color: #a9a9a9; /* Arrow color */
+}
+.prettydropdown.arrow > ul > li.selected:after {
+  top: 4px; /* Chevron thickness */
+  border-top-color: #fff; /* Match background colour */
+}
+.prettydropdown.arrow.small > ul > li.selected:after {
+  top: 2px; /* Chevron thickness */
+}
+.prettydropdown.arrow.triangle > ul > li.selected:after {
+  content: none;
+}
+.prettydropdown > ul:hover > li.selected:before {
+  border-top-color: #7f7f7f;
+}
+.prettydropdown > ul.active > li.selected:before {
+  border-top-color: #1e90ff;
+}
+.prettydropdown > ul.active > li.selected:hover:before {
+  border-top-color: #fff;
+}
+.prettydropdown > ul.active > li.selected:hover:after {
+  background: none;
+  border-top-color: #1e90ff;
+}
+.prettydropdown.multiple > ul > li.selected {
+  overflow: hidden;
+  padding-right: 2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prettydropdown > ul > li > span {
+  clear: both;
+  float: right;
+  font-weight: bold;
+  margin-right: 0.8rem;
+}

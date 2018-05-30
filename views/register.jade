@@ -1,0 +1,52 @@
+extends layout
+
+block body
+
+  .register#registerform
+    .row
+      .col-lg-6.col-lg-offset-3
+        form.bs-example.form-horizontal(method='post', action='')
+          fieldset
+            legend Create a New Account
+            if error
+              .alert.alert-dismissable.alert-danger.register-fail
+                button.close(data-dismiss='alert', type='button') &times;
+                p.
+                  #{error}
+            p.
+              Registering for this site will create a new user account for you, then log you in
+              automatically.
+            .alert.alert-dismissable.alert-info
+              button.close(data-dismiss='alert', type='button') &times;
+              p.
+                #[strong NOTE: ]Your password must be between 8 and 100 characters, and must
+                contain lowercase letters, uppercase letters, and numbers.
+            .form-group
+              label.col-lg-4.control-label(for='surname') Name
+              .col-lg-4
+                input#surname.form-control(name='surname', type='text', placeholder='Name', autofocus, onkeypress="return handleEnter(this, event)")
+            .form-group
+              label.col-lg-4.control-label(for='institution') Institution
+              .col-lg-4
+                input#username.form-control(name='institution', type='text', placeholder='Institution', autofocus, onkeypress="return handleEnter(this, event)")
+            .form-group
+              label.col-lg-4.control-label(for='username') Email
+              .col-lg-4
+                input#username.form-control(name='username', type='email', placeholder='Email', autofocus, onkeypress="return handleEnter(this, event)")
+            .form-group
+              label.col-lg-4.control-label(for='password') Password
+              .col-lg-4
+                input#password.form-control(name='password', type='password', placeholder='Password', onkeypress="return handleEnter(this, event)")
+            .form-group
+              .col-lg-10.col-lg-offset-4
+                button.btn.btn-primary(type='submit', onclick="get_institution();") Register
+  script(type='text/javascript').
+    $('#registerform').on('keypress', function(e) {
+        return e.which !== 13;
+    });
+    function get_institution() {
+      localStorage.setItem("institution", document.getElementById('username').value);
+    }
+  include footer.jade
+  div &nbsp;
+  div &nbsp;

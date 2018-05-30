@@ -1,0 +1,236 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+body {
+  padding: 9px;
+  font-family: "calibri";
+}
+h1 {
+  text-align: center;
+}
+.half-one {
+  float:left;
+  border-right: 1px solid #000000;
+  position: relative;
+  display: inline-block;
+  width: 49%;
+  height: 100%;
+}
+
+.half-two {
+  float:  right;
+  position: relative;
+  display: inline-block;
+  width: 49%;
+  height: 100%;
+  font-family: Arial; 
+  vertical-align: middle;
+}
+
+.half-two input {
+  width: 246px;
+  vertical-align: middle;
+  float: left !important;
+  line-height: 20px;
+  font-size: 18px;
+  margin-left: 0px !important;
+}
+
+.blank_row
+{
+    height: 10px !important; /* Overwrite any previous rules */
+    background-color: #FFFFFF;
+}
+
+.nice-select {
+  margin-left: 0px !important;
+}
+
+.half-two select {
+  width: 250px;
+  color: #000;
+  border-radius: 0px;
+  background: transparent;
+  z-index: auto;
+  display: none;
+}
+
+#submit-all {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #004f80;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:0;
+  margin-top: 45px;
+  margin-left: 100px;
+  width: 160px;
+}
+
+#submit-all:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+#remove-all {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #004f80;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:0;
+  position: absolute;
+  width: 160px;
+}
+
+#remove-all:hover {
+  background: #a60000;
+  text-decoration: none;
+}
+
+#csv-request {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #004f80;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:0;
+  margin-top: 80px;
+
+}
+
+#csv-request:hover {
+  background: #138a1b;
+  text-decoration: none;
+}
+
+#prettydropdown-ulcer_dropdown1 {
+  z-index: 1;
+}
+
+#prettydropdown-mitotic_dropdown1 {
+  z-index: 2;
+}
+
+#prettydropdown-meltype_dropdown1 {
+  z-index: 3;
+}
+
+#prettydropdown-melclass_dropdown1 {
+  z-index: 4;
+}
+
+#prettydropdown-nevustype_dropdown1 {
+  z-index: 5;
+}
+
+#prettydropdown-benmal_dropdown1 {
+  z-index: 6;
+}
+
+#prettydropdown-diagnosis_dropdown1 {
+  z-index: 7;
+}
+
+#prettydropdown-confirmtype_dropdown1 {
+  z-index: 8;
+}
+
+#prettydropdown-imagetype_dropdown1 {
+  z-index: 9;
+}
+
+#prettydropdown-sex_dropdown1 {
+  z-index: 10;
+}
+
+/*http://css-tricks.com/css3-progress-bars*/
+.meter {
+  height: 20px;
+  position: relative;
+  margin-bottom: 20px;
+  background: #555;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+  padding: 10px;
+  -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+  display: none;
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-topright: 8px;
+  -moz-border-radius-bottomright: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: rgb(43, 194, 83);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(43, 194, 83)), color-stop(1, rgb(84, 240, 84)));
+  background-image: -moz-linear-gradient(center bottom, rgb(43, 194, 83) 37%, rgb(84, 240, 84) 69%);
+  -webkit-box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.meter > span:after, .animate > span > span {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent), to(transparent));
+  background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+  z-index: 1;
+  -webkit-background-size: 50px 50px;
+  -moz-background-size: 50px 50px;
+  background-size: 50px 50px;
+  -webkit-animation: move 2s linear infinite;
+  -moz-animation: move 2s linear infinite;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-topright: 8px;
+  -moz-border-radius-bottomright: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+#simpleUpload {
+  padding: 39px;
+}
+
+.footer{
+  float: right;
+  padding-right: 39px;
+  text-align: center;
+}

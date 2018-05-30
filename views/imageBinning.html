@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Dynamic Image Categorization</title>
+      <link rel="stylesheet" type="text/css" href="../public/css/image-picker.css" />
+      <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../public/css/imageBinning.css">
+      <script src="../public/js/jquery.min.js"></script>
+      <script src="../public/js/interact.min.js"></script>
+      <script src="../public/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../public/js/mainImageBinning.js"></script>
+      <script type="text/javascript" src="../public/js/FileSaver.js"></script>
+      <link href="../public/css/imageviewer.css"  rel="stylesheet" type="text/css" />
+      <script src="../public/js/imageviewer.min.js"></script>
+      <script type="text/javascript" src="../public/js/contextMenu.js"></script>
+      <link href="../public/css/contextMenu.css"  rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="../public/js/hashids.min.js"></script>
+   </head>
+   <body>
+      <div class="row">
+         <div id="left" class="col-sm-4">
+            <div id="category1-dropzone" class="dropzone"><input class="categoryName" placeholder="Category 1" id="Category 1"></div>
+         </div>
+         <div id="content" class="col-sm-7">
+         <div class="container-fluid" style="text-align:center;">
+           <div class="row">
+             <div class="col-xs-5">
+               <p><span id="viewbutton" bypatient="true">View All Images</span></p>
+             </div>
+             <div class="col-xs-3">
+               <p id="nav_panel"><span id="nav_back" onclick="navBack();">&#60; </span><span id="nav_indicator">Pt: </span><span id="nav_forward" onclick="navForward();"> &#62;</span></p>
+             </div>
+             <div class="col-xs-3">
+               <p><span id="savebutton">Save</span></p>
+             </div>
+             <div class="clearfix"></div>
+           </div>
+         </div>
+
+         
+         </div>
+
+
+
+
+      </div>
+   </body>
+</html>

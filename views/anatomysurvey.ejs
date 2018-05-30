@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script type="text/javascript" src="../libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/AnatomySurvey/index.js"></script>
+    <script type="text/javascript" src='../libs/socket.io.js'></script>
+    <script type="text/javascript" src='../js/jquery.sticky.js'></script>
+    <script type="text/javascript" src="../js/jquery.simplemodal.1.4.4.min.js"></script>
+    <script type="text/javascript" src="../js/object_hash.js"></script>
+    <script type="text/javascript" src="../dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../dist/sweetalert.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/AnatomySurvey/style.css">
+    <script>
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+        if (!isChrome) {
+            alert("This website was designed for Google Chrome. Please switch browsers.");
+        }
+    </script>
+</head>
+
+<body>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="row">
+                <div class="container">
+                <div class="row" id="instructionstext">
+                <div class="col-md-12">
+                <h2>Instructions</h2>
+                <p>(1) Use YES and NO buttons to indicate agreement</p>
+                <p>(2) For terms with which you disagree, enter an alternative</p>
+                <p>(3) Use <span style='font-weight:700;color:red'>+</span> to add a SUB-node</p>
+                <p>(4) Responses are saved automatically</p> </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="">New Users</h3>
+                                </div>
+                                <div class="panel-body" style="">
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Name:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="name_input" placeholder="Enter First and Last Name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Institution:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="institution_input" placeholder="Enter Institution" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Email:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="email_input" placeholder="Enter Email" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="vl"></span>
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="">Returning Users<span class="close">.</span></h3>
+                                </div>
+                                <div class="panel-body" style="">
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Email:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="prev_email" placeholder="Email used previously" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6">
+                                            <input type="text" style="border: none; display: block; background-color: white;" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6">
+                                            <input type="text" style="border: none; display: block; background-color:white" class="form-control" disabled=>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="myBtn" id="beginSurveyBtn">Begin</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="myBtn" id="continueSurveyBtn">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='error_msg'>
+                <div id='msg1'></div>
+            </div>
+        </div>
+
+    </div>
+    <div class='container' id='container1'>
+        <div class='row' id='b_row'>
+            <div class='col-md-7' id='col1'>
+                <h3>Indicate agreement:</h3>
+                <div class="accordion" id="list"></div>
+            </div>
+            <div class='col-md-4' id='col2'>
+                <div id='diagram'>
+                    <h3>Diagram</h3>
+                    <p id='diagram_subtitle'>Depictions are meant to give general frame of reference</p>
+                    <div id='the_image'></div>
+                </div>
+            </div>
+            <div class='col-md-1'>
+                <h3></h3>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var socket = io();
+        var UserDataObj = [{}];
+        var u69614;
+        var agreement;
+        var allData;
+        var anatomicLevels;
+        var userList = '';
+        var userProgress = '';
+        institution = localStorage.getItem("institution");
+        var array = ["<ul class='accordion'>"];
+        var categories = ['HeadandNeck', 'Trunk', 'UpperExtremity', 'LowerExtremity', 'Anogenitalregion'];
+        socket.emit("requestPreviousUsers", 'requestUsers');
+        socket.on("returnUserList", function(users) {
+            userList = users;
+        });
+        socket.on("returnUserProgress", function(data) {
+            userProgress = data;
+            uniqueNodes = [...new Set(userProgress.map(item => item.anatomic))];
+            user_email = $('#container1').attr('user_email');
+            restoreUserProgress(uniqueNodes, user_email);
+        });
+        $(document).ready(function() {
+            $("#diagram").sticky({topSpacing: 0});
+            draw_survey(array);
+            checkUser();
+            //appendSaveButtons();
+            var modal = document.getElementById('myModal');
+            var span = document.getElementsByClassName("close")[0];
+            var beginBtn = document.getElementById("beginSurveyBtn");
+            var continueBtn = document.getElementById("continueSurveyBtn");
+            modal.style.display = "block";
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+            beginBtn.onclick = function() {
+                if ($('#name_input').val() == "" || $('#institution_input').val() == "" || $('#email_input').val() == "") {
+                    $('#msg1').remove();
+                    emsg = document.createElement('p');
+                    emsg.innerText = "Error: Missing values!"
+                    emsg.id = 'msg1';
+                    $('#error_msg').append(emsg);
+                } else {
+                    user_name = $('#name_input').val();
+                    user_institution = $('#institution_input').val();
+                    user_email = $('#email_input').val();
+                    $('#container1').attr('user_name', user_name).attr('user_institution', user_institution).attr('user_email', user_email);
+                    socket.emit("SendAnatomyUserData", {
+                        'user_name': user_name,
+                        'user_institution': user_institution,
+                        'user_email': user_email
+                    });
+                    modal.style.display = "none";
+                    appendSaveButtons();
+                }
+            }
+            continueBtn.onclick = function() {
+                if ($('#prev_email').val() == "") {
+                    $('#msg1').remove();
+                    emsg = document.createElement('p');
+                    emsg.innerText = "Error: Missing values!"
+                    emsg.id = 'msg1';
+                    $('#error_msg').append(emsg);
+                } else {
+                    entered_email = $('#prev_email').val();
+                    var hash = objectHash.sha1(entered_email);
+                    validUser = $.inArray(hash, userList);
+                    if (validUser < 0) {
+                        $('#msg1').remove();
+                        emsg = document.createElement('p');
+                        emsg.innerText = "Unrecognized User"
+                        emsg.id = 'msg1';
+                        $('#error_msg').append(emsg);
+                    } else {
+                        user_email = entered_email;
+                        $('#container1').attr('user_email', user_email);
+                        modal.style.display = "none";
+                        socket.emit('requestUserProgress', user_email);
+                        appendSaveButtons();
+                    }
+                }
+            }
+            $('input').each(function() {
+                $(this).keypress(function(e) {
+                    return isValidKey(e);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

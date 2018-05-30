@@ -1,0 +1,42 @@
+{
+  "name": "isicdataupload",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt-nodejs": "latest",
+    "connect-flash": "~0.1.1",
+    "cookies": "latest",
+    "ejs": "~0.8.5",
+    "express": "~3.4.4",
+    "json2csv": "^3.7.3",
+    "jsonexport": "latest",
+    "mongodb": "^2.0",
+    "mongojs": "^2.0",
+    "mongoose": "~3.8.1",
+    "node-datetime": "latest",
+    "object-hash": "^1.2.0",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2",
+    "serve-index": "^1.9.1",
+    "serve-static": "^1.13.2",
+    "socket.io": "^1.7.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Code for the entire scotch.io tutorial series: Complete Guide to Node Authentication",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kallooa/ims1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kallooa/ims1/issues"
+  },
+  "homepage": "https://github.com/kallooa/ims1#readme"
+}

@@ -1,0 +1,86 @@
+#!/usr/bin/env node
+/*
+To make changes on Azure:
+
+Navigate to folder in terminal
+
+git add .
+git commit -m "some message"
+git push azure master
+*/
+require('dotenv').config()
+var debug = require('debug')('my-application');
+var app = require('../app');
+var mongodb = require('mongodb');
+var databaseUrl = "mongodb://easydb:o75WhGq3nsdlCr0eIyMobx2qPvd8sL9drD9SvHLxdMscNXXgzgSanoPoH3Ou9Qqvg9GECZ2gnAtYy461aH1MZg==@easydb.documents.azure.com:10250/?ssl=true";
+var db = require("mongojs")(databaseUrl);
+var json2csv = require('json2csv');
+var nodeArr = '';
+var result = '';
+var thefilename = '';
+var requestedLesionNum = '';
+var easyStorage = db.collection('easyData');
+var licenseStorage = db.collection('userLicense');
+var jsonexport = require('jsonexport');
+var datasetinfo = db.collection('datasetInfo');
+var fs = require('fs');
+var dataForge = require('data-forge');
+
+app.set('port', process.env.PORT || 8080); //PORT IS HERE
+
+var server = app.listen(app.get('port'), function() {
+  console.log('Express server listening on port ' + server.address().port);
+});
+
+var io = require('socket.io').listen(server); //app //app2
+
+function _getMsg(st, callback) { //return data for particular requested lesion number
+    db.collection('easyData').find({'user': st.user, 'dataset_name': st.dataset_name}).toArray(function (err, docs) {
+        callback(docs);
+    });
+}
+
+function writecsv(csv, username) {
+	//username = username.substring(0, username.indexOf('@'));
+	thefilename = 'csvs/'+username+'-'+Date.now().toString()+'-file.csv';
+	fs.writeFile(thefilename, csv, function(err) {
+	  if (err) throw err;
+	  console.log('file saved');
+	});
+}
+
+io.on("connection", function (socket) {
+    socket.on("dataFromUser", function(data) {
+        console.log('user sends: ', data);
+        easyStorage.insert(data);
+    });
+
+    socket.on("user_sig", function(data) {
+        console.log('user signed:', data);
+        licenseStorage.insert(data);
+    });
+
+    socket.on("dataset_info", function(data) {
+        console.log('dataset:', data);
+        datasetinfo.insert(data);
+    });
+
+    socket.on("csv_request", function(user_data) {
+    	console.log('requesting csv');
+        _getMsg(user_data, function (res) {
+            nodeArr = res;  // just moved the nodeArr declaration to function scope
+            var inputDataFrame = dataForge.fromJSON(JSON.stringify(nodeArr));
+            console.log(inputDataFrame.toString()); 
+            socket.emit("csvdata", inputDataFrame);
+            jsonexport(nodeArr,function(err, csv){
+			    if(err) return console.log(err);
+			    result = csv;
+			    console.log(typeof(result));
+			    writecsv(result, user_data);
+			});
+        });
+        console.log(result);
+    });
+
+});
+

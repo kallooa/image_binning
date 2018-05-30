@@ -1,0 +1,215 @@
+<html>
+   <head>
+      <script type="text/javascript" src="../libs/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="../dist/sweetalert2.all.js"></script>
+      <script type="text/javascript" src="../js/jquery.simplemodal.1.4.4.min.js"></script>
+      <script type="text/javascript" src='../libs/socket.io.js'></script>
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="../dist/sweetalert.css">
+      <style>
+         .row {
+         margin-top: 2%;
+         }
+         #video {
+         max-width: 700px;
+         max-height: 400px;
+         }
+         .buttons {
+            text-align: center;
+            margin-top: 20px;
+         }
+         .btn {
+           font-family: Arial;
+           color: #ffffff;
+           font-size: 20px;
+           background: #3498db;
+           padding: 10px 20px 10px 20px;
+           text-decoration: none;
+           margin: 20px;
+         }
+         .btn:hover {
+           background: #3cb0fd;
+           background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+           background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+           text-decoration: none;
+          }
+          .modal {
+              display: none;
+              position: fixed;
+              z-index: 1;
+              left: 00;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              overflow: auto;
+              background-color: rgb(0, 0, 0);
+              background-color: rgba(0, 0, 0, 0.4);
+              padding-left: 30%;
+              padding-top: 5%;
+          }
+          .modal-content {
+              background-color: #fefefe;
+              margin: 5% auto;
+              padding: 20px;
+              border: 1px solid #888;
+              width: 70%;    
+              min-height: 60%;
+          }
+          .modal_subheader {
+              font-weight: 700;
+          }
+          .myBtn1 {
+           font-family: Arial;
+           color: #ffffff;
+           font-size: 20px;
+           background: #3498db;
+           padding: 10px;
+           text-decoration: none;
+           margin: 20px;
+           float: right;
+          }
+         }
+      </style>
+    <script>
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+        if (!isChrome) {
+            alert("This website was designed for Google Chrome. Please switch browsers.");
+        }
+    </script>
+   </head>
+   <body>
+          <div id="myModal" class="modal">
+
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="">Input Information</h3>
+                                </div>
+                                <div class="panel-body" style="">
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Name:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="name_input" placeholder="Enter First and Last Name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Institution:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="institution_input" placeholder="Enter Institution" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="">
+                                        <div class="col-md-6"><span>Email:</span></div>
+                                        <div class="col-md-6">
+                                            <input type="text" id="email_input" placeholder="Enter Email" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <button class="myBtn1" id="continueSurveyBtn">Continue</button>
+
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+      <div class="container">
+         <div class="row">
+            <div class="col-md-4">
+               <div id="greeting_text">
+                  <br><br>
+                  <p>Dear Colleagues: </p>
+                  <br>
+                  <p> We are now in the final stages of preparing the survey for our anatomy standardization efforts.</p> 
+                  <p>On the right, you can see a demonstration of our survey tool, which can be used to agree with terms, disagree with terms, or add new terms if necessary. This survey widget was designed to be as efficient and easy to use as possible.</p>
+                  <p>I hope that you can collaborate on this project to help resolve descrepancies in anatomical terminology. Please indicate your decision using the buttons below.</p>
+                  <br>
+                  <p>Thank you,</p> <p>- Allan Halpern &amp; Team</p>
+               </div>
+            </div>
+            <div class="col-md-8">
+               <h3>Preview: </h3>
+               <video id="video" muted="" class="gifyt-player gifyt-embed" preload="auto" loop="loop" autoplay="autoplay" playsinline="">
+                  <source src="https://j.gifs.com/l526Q6.mp4" type="video/mp4">
+               </video>
+            </div>
+         </div>
+         <div class="row">
+            <div class="buttons">
+               <button class="btn" id="yesbutton">Will Participate</button>
+               <button class="btn" id="nobutton">Will Not Participate</button>
+               <button class="btn" id="suggestbtn">Suggest a Colleague</button>
+            </div>
+         </div>
+      </div>
+      <script>
+      var socket = io();
+      $(document).ready(function() {
+          var modal = document.getElementById('myModal');
+          modal.style.display = "block";
+          $('#continueSurveyBtn')[0].onclick = function() {
+            name = $('#name_input')[0].value;
+            institution = $('#institution_input')[0].value;
+            email = $('#email_input')[0].value;
+            if (name != '' && institution != '' && email != '') {
+              modal.style.display = "none";
+            }
+          };
+          $('#yesbutton')[0].onclick = function() {
+            socket.emit("SendAnatomyPreSurveyData", {
+                'user_name': name,
+                'user_institution': institution,
+                'user_email': email,
+                'participation': 'yes',
+                'proxy':'no',
+                'proxy_email':'none'
+            });
+            sweetAlert('Thank you! Your response has been recorded. On the next page, please sign up as a New User.')
+            setTimeout(function(){1+1}, 3000);
+            window.location="https://isicdataupload.com/anatomysurvey/"
+          };
+          $('#nobutton')[0].onclick = function() {
+                swal({
+                  title: 'Are you sure?',
+                  text: "",
+                  type: 'warning',
+                  showCancelButton: true,
+                  showCloseButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#3085d6',
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'Suggest a Colleague',
+                  confirmButtonClass: 'btn btn-success',
+                  cancelButtonClass: 'btn btn-danger',
+                  buttonsStyling: false,
+                  reverseButtons: false
+                }).then((result) => {
+                  if (result.value) {
+                    swal(
+                      'Your response has been recorded',
+                      '',
+                      'success'
+                    ).then(() => { socket.emit("SendAnatomyPreSurveyData", {'user_name': name, 'user_institution': institution,'user_email': email, 'participation': 'no', 'proxy':'no', 'proxy_email':'none'});});
+
+                  } else if (result.dismiss === 'cancel') {
+                      const {value: p_email} = swal({
+                        title: 'Input email address',
+                        input: 'email',
+                        inputPlaceholder: 'Enter email address'
+                      }).then((p_email) => {console.log(p_email.value); socket.emit("SendAnatomyPreSurveyData", {'user_name': name,'user_institution': institution,'user_email': email, 'participation': 'proxy', 'proxy_email': p_email.value}); sweetAlert('Thank you! Your response has been recorded.');});
+                  }
+                })
+          };
+          $('#suggestbtn')[0].onclick = function() {
+                      const {value: p_email} = swal({
+                        title: 'Input email address',
+                        input: 'email',
+                        inputPlaceholder: 'Enter email address'
+                      }).then((p_email) => {console.log(p_email.value); socket.emit("SendAnatomyPreSurveyData", {'user_name': name,'user_institution': institution,'user_email': email, 'participation': 'proxy', 'proxy_email': p_email.value}); sweetAlert('Thank you! Your response has been recorded.');});
+          };
+       });
+      </script>
+   </body>
+</html>

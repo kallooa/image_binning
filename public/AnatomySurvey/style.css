@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:300,400,600");
+* {
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+p {
+  font-size: 1.1em;
+  margin: 1em 0;
+}
+.description {
+  margin: 1em auto 2.25em;
+}
+body {
+  width: 100%;
+  min-width: 300px;
+  color: #333;
+  background-color: #fff;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+ul .inner {
+  padding-left: 1em;
+  overflow: hidden;
+  display: none;
+}
+ul .inner.show {
+  /*display: block;*/
+}
+ul li {
+  margin: 0.5em 0;
+}
+ul li a.toggle {
+  width: 100%;
+  display: block;
+  background: #333;
+  color: #fefefe;
+  padding: 0.75em;
+  border-radius: 0.15em;
+  transition: background 0.3s ease;
+  min-height: 50px;
+}
+ul li a.toggle:hover {
+  background: black;
+}	
+span label {
+  margin-right: 5px;
+}
+span label input {
+  margin: 4px !important;
+}
+
+.status {
+  margin-top: 15px;
+  margin-left: 40px;
+  font-weight: bold;
+  display: inline;
+}
+
+#progresstext {
+  font-size: 30px;
+  display: inline;
+}

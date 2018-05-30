@@ -1,0 +1,2 @@
+_id._bsontype,_id.id.0,_id.id.1,_id.id.2,_id.id.3,_id.id.4,_id.id.5,_id.id.6,_id.id.7,_id.id.8,_id.id.9,_id.id.10,_id.id.11,_id.id.offset,_id.generationTime,user,dataset_name,filename,age,sex,image_type,diagnosis_confirm_type,diagnosis,benign_malignant,nevus_type,mel_class,mel_type,mel_mit,mel_thick,mel_thick_cat,ulcer
+ObjectID,88,183,38,69,125,230,40,44,154,31,155,247,2912,1488397893,kallooa@mskcc.org,dataset3,derm4.jpg,55,female,contact polarized dermoscopy,histopathology,nevus,benign,blue,not applicable,not applicable,not applicable,,not applicable,not applicable

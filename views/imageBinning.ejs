@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Dynamic Image Categorization</title>
+      <link rel="stylesheet" type="text/css" href="/css/image-picker.css" />
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/imageBinning.css">
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/interact.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/js/mainImageBinning.js"></script>
+      <script type="text/javascript" src="/js/FileSaver.js"></script>
+      <link href="/css/imageviewer.css"  rel="stylesheet" type="text/css" />
+      <script src="/js/imageviewer.min.js"></script>
+      <script type="text/javascript" src="/js/contextMenu.js"></script>
+      <link href="/css/contextMenu.css"  rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="/js/hashes.min.js"></script>
+      <script src="js/socket.io.min.js"></script>
+
+   </head>
+   <body>
+			<script>
+			  var socket = io();
+			</script>   
+      <div class="row">
+         <div id="left" class="col-sm-4">
+            <div id="category1-dropzone" class="dropzone"><input class="categoryName" placeholder="Category 1" id="Category 1"></div>
+         </div>
+         <div id="content" class="col-sm-7">
+         <div class="container-fluid" style="text-align:center;">
+           <div class="row">
+             <div class="col-xs-5">
+               <p><span id="viewbutton" bypatient="true">View All Images</span></p>
+             </div>
+             <div class="col-xs-3">
+               <p id="nav_panel"><span id="nav_back" onclick="navBack();">&#60; </span><span id="nav_indicator">Pt: </span><span id="nav_forward" onclick="navForward();"> &#62;</span></p>
+             </div>
+             <div class="col-xs-3">
+               <p><span id="savebutton">Save</span></p>
+             </div>
+             <div class="clearfix"></div>
+           </div>
+         </div>
+
+         
+         </div>
+
+      </div>
+      
+      
+      
+   </body>
+</html>

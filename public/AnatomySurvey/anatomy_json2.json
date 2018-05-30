@@ -1,0 +1,512 @@
+var allData = {
+  "Head and Neck": {
+    "Scalp": {
+      "Frontal scalp": {
+        "Frontal scalp margin": []
+      },
+      "Temporal scalp": {
+        "Temporal scalp margin": []
+      },
+      "Parietal scalp": {
+        "Parietal scalp margin": []
+      },
+      "Occipital scalp": {
+        "Occipital scalp margin": []
+      },
+      "Vertex of scalp": []
+    },
+    "External ear": {
+      "Pinna": {
+        "Helix of pinna": {
+          "Crus of helix": [],
+          "Apex of helix": [],
+          "Spine of helix": [],
+          "Tail of helix": []
+        },
+        "Scaphoid fossa of pinna": [],
+        "Antihelix of pinna": {
+          "Crura of antihelix": []
+        },
+        "Triangular fossa of pinna": [],
+        "Conchal bowl of pinna": [],
+        "Tragus of pinna": [],
+        "Intertragic notch of pinna": [],
+        "Lobule of pinna": [],
+        "Antitragus of pinna": [],
+        "Retroauricular sulcus": [],
+        "Posterior surface of pinna": []
+      },
+      "External auditory canal": {
+        "External auditory meatus": [],
+        "Tympanic membrane": []
+      }
+    },
+    "Face": {
+      "Forehead": {
+        "Central forehead": {
+          "Paramedian forehead": [],
+          "Glabella": []
+        },
+        "Lateral forehead": []
+      },
+      "Temple": [],
+      "Orbital region": {
+        "Periorbital region": {
+          "Supraorbital region": {
+            "Eyebrow": []
+          },
+          "Infraorbital region": [],
+          "Eyelid": {
+            "Upper eyelid": {
+              "Upper eyelid margin": [],
+              "Superior palpebral sulcus": []
+            },
+            "Lower eyelid": {
+              "Lower eyelid margin": [],
+              "Lacrimal punctum": []
+            },
+            "Medial canthus": [],
+            "Lateral canthus": []
+          },
+          "Conjunctiva": {
+            "Palpebral conjunctiva": [],
+            "Conjunctival fornix": {
+              "Superior conjunctival fornix": [],
+              "Inferior conjunctival fornix": []
+            },
+            "Bulbar conjunctiva": []
+          },
+          "Sclera": [],
+          "Cornea": {
+            "Limbus": []
+          }
+        }
+      },
+      "Cheek": {
+        "Upper cheek": {
+          "Malar eminence": []
+        },
+        "Central cheek": [],
+        "Paranasal area": [],
+        "Lower cheek": [],
+        "Preauricular region": [],
+        "Angle of jaw": [],
+        "Mandibular region": []
+      },
+      "Nose": {
+        "Root of nose": [],
+        "Dorsum of nose": [],
+        "Lateral side wall of nose": [],
+        "Supratip of nose": [],
+        "Tip of nose": [],
+        "Infratip lobule of nose": [],
+        "Ala nasi": {
+          "Side wall of ala nasi": [],
+          "Alar groove": [],
+          "Alar rim": []
+        },
+        "Nostril": {
+          "Columella": [],
+          "Sill of nostril": []
+        }
+      },
+      "Oral region": {
+        "Lip": {
+          "Upper lip": {
+            "Cutaneous upper lip": {
+              "Philtrum": []
+            },
+            "Vermilion border of upper lip": [],
+            "Vermilion of upper lip": [],
+            "Labial mucosa of upper lip": []
+          },
+          "Labial commissure": [],
+          "Lower lip": {
+            "Skin of lower lip": [],
+            "Vermilion border of lower lip": [],
+            "Vermilion of lower lip": [],
+            "Labial mucosa of lower lip": []
+          }
+        }
+      },
+      "Mouth": {
+        "Oral mucosa": {
+          "Buccal mucosa": [],
+          "Palatal mucosa": [],
+          "Mucosa of floor of mouth": []
+        },
+        "Superolateral buccal sulcus": [],
+        "Superior labial sulcus": [],
+        "Inferolateral buccal sulcus": [],
+        "Inferior labial sulcus": [],
+        "Buccal pouch": [],
+        "Palate": {
+          "Hard palate": [],
+          "Soft palate": [],
+          "Uvula": []
+        },
+        "Floor of mouth": [],
+        "Gingiva": {
+          "Gingiva of maxilla": [],
+          "Gingiva of mandible": []
+        },
+        "Tongue": {
+          "Body of tongue": [],
+          "Base of tongue": [],
+          "Dorsal surface of tongue": {
+            "Dorsal surface of body of tongue": [],
+            "Dorsal surface of base of tongue": []
+          },
+          "Lateral margin of tongue": [],
+          "Tip of tongue": [],
+          "Ventral surface of tongue": {
+            "Lingual frenulum": []
+          }
+        },
+        "Anterior tonsillar pillar": [],
+        "Tonsillar fossa": [],
+        "Tonsil": [],
+        "Posterior tonsillar pillar": [],
+        "Oropharynx": []
+      },
+      "Chin": []
+    },
+    "Neck": {
+      "Front of neck": {
+        "Anterior triangle of neck": {
+          "Submental area": [],
+          "Submandibular area": []
+        },
+        "Vee of neck": []
+      },
+      "Side of neck": {
+        "Posterior triangle of neck": []
+      },
+      "Nape of neck": [],
+      "Supraclavicular region": []
+    }
+  },
+  "Trunk": {
+    "Chest wall": {
+      "Anterior chest": {
+        "Upper anterior chest": {
+          "Clavicle": [],
+          "Infraclavicular area": [],
+          "Presternal region": []
+        },
+        "Lower anterior chest": [],
+        "Breast": {
+          "Upper outer quadrant of breast": [],
+          "Upper inner quadrant of breast": [],
+          "Lower outer quadrant of breast": [],
+          "Lower inner quadrant of breast": [],
+          "Axillary tail of breast": [],
+          "Inframammary flexure": [],
+          "Areola": [],
+          "Nipple": []
+        }
+      },
+      "Lateral chest": {
+        "Upper lateral chest ": {
+          "Axilla": {
+            "Apex of axilla": [],
+            "Anterior axillary fold": [],
+            "Posterior axillary fold": []
+          }
+        },
+        "Lower lateral chest": []
+      },
+      "Upper Back": {
+        "Suprascapular region": [],
+        "Scapular region": [],
+        "Upper paraspinal region": []
+      }
+    },
+    "Abdomen": {
+      "Anterior abdomen": {
+        "Upper abdomen": {
+          "Epigastric region": [],
+          "Hypochondriac region": []
+        },
+        "Lumbar abdominal region": [],
+        "Umbilical region": {
+          "Umbilicus": []
+        },
+        "Lower Abdomen": {
+          "Hypogastric region": [],
+          "Inguinal region": []
+        }
+      },
+      "Lateral abdomen": []
+    },
+    "Lumbosacral region": {
+      "Mid back": {
+        "Mid paraspinal region": []
+      },
+      "Lower back": {
+        "Lumbar area": [],
+        "Lower paraspinal area": [],
+        "Sacral region": []
+      }
+    }
+  },
+  "Upper Extremity": {
+    "Shoulder": {
+      "Anterior shoulder": [],
+      "Lateral shoulder": [],
+      "Posterior shoulder": []
+    },
+    "Upper arm": {
+      "Anterior upper arm": [],
+      "Lateral upper arm": [],
+      "Posterior upper arm": [],
+      "Medial upper arm": []
+    },
+    "Elbow": {
+      "Elbow tip": [],
+      "Lateral elbow": [],
+      "Medial elbow": [],
+      "Antecubital fossa": []
+    },
+    "Forearm": {
+      "Dorsal forearm": [],
+      "Volar forearm": [],
+      "Radial forearm": [],
+      "Ulnar forearm": []
+    },
+    "Wrist": {
+      "Dorsal wrist": [],
+      "Volar wrist": [],
+      "Radial wrist": [],
+      "Ulnar wrist": []
+    },
+    "Hand": {
+      "Dorsum of hand": {
+        "Knuckles": {
+          "First metacarpal joint": [],
+          "Second metacarpal joint": [],
+          "Third metacarpal joint": [],
+          "Fourth metacarpal joint": [],
+          "Fifth metacarpal joint": [],
+          "First interphalangeal joint": [],
+          "Second proximal interphalangeal joint": [],
+          "Third proximal interphalangeal joint": [],
+          "Fourth proximal interphalangeal joint": [],
+          "Fifth proximal interphalangeal joint": [],
+          "Second distal interphalangeal joint": [],
+          "Third distal interphalangeal joint": [],
+          "Fourth distal interphalangeal joint": [],
+          "Fifth distal interphalangeal joint": []
+        },
+        "Interdigital web spaces of hand": {
+          "First interdigital web space of hand": [],
+          "Second interdigital web space of hand": [],
+          "Third interdigital web space of hand": [],
+          "Fourth interdigital web space of hand": []
+        }
+      },
+      "Palm of hand": {
+        "Hypothenar eminence": [],
+        "Thenar eminence": [],
+        "Central palm": [],
+        "Distal palm": []
+      },
+      "Fingers and thumb": {
+        "Thumb": {
+          "Proximal phalanx of thumb": [],
+          "Distal phalanx of thumb": {
+            "Paronychium of thumb": [],
+            "Thumbnail": {
+              "Nail bed of thumb": []
+            },
+            "Pad of thumb": []
+          }
+        },
+        "Index finger": {
+          "Proximal phalanx of index finger": [],
+          "Middle phalanx of index finger": [],
+          "Distal phalanx of index finger": {
+            "Paronychium of index finger": [],
+            "Index fingernail": {
+              "Nail bed of index finger": []
+            },
+            "Pad of index finger": []
+          }
+        },
+        "Middle finger": {
+          "Proximal phalanx of middle finger": [],
+          "Middle phalanx of middle finger": [],
+          "Distal phalanx of middle finger": {
+            "Paronychium of middle finger": [],
+            "Middle fingernail": {
+              "Nail bed of middle finger": []
+            },
+            "Pad of middle finger": []
+          }
+        },
+        "Ring finger": {
+          "Proximal phalanx of ring finger": [],
+          "Middle phalanx of ring finger": [],
+          "Distal phalanx of ring finger": {
+            "Paronychium of ring finger": [],
+            "Ring fingernail": {
+              "Nail bed of ring finger": []
+            },
+            "Pad of ring finger": []
+          }
+        },
+        "Little finger": {
+          "Proximal phalanx of little finger": [],
+          "Middle phalanx of little finger": [],
+          "Distal phalanx of little finger": {
+            "Paronychium of little finger": [],
+            "Little fingernail": {
+              "Nail bed of little finger": []
+            },
+            "Pad of little finger": []
+          }
+        }
+      }
+    }
+  },
+  "Lower Extremity": {
+    "Buttock": [],
+    "Thigh": {
+      "Anterior thigh": [],
+      "Lateral thigh": {
+        "Trochanteric region": []
+      },
+      "Posterior thigh": [],
+      "Medial thigh": {
+        "Upper medial thigh": []
+      }
+    },
+    "Knee": {
+      "Patellar region": [],
+      "Lateral knee": [],
+      "Medial knee": [],
+      "Popliteal fossa": []
+    },
+    "Lower leg": {
+      "Shin": [],
+      "Calf": {
+        "Lateral calf": [],
+        "Medial calf": [],
+        "Posterior calf": []
+      }
+    },
+    "Ankle": {
+      "Anterior ankle": [],
+      "Medial ankle": {
+        "Medial malleolus": []
+      },
+      "Lateral ankle": {
+        "Lateral malleolus": []
+      },
+      "Achilles region": []
+    },
+    "Foot": {
+      "Dorsum of foot": {
+        "Interdigital web space of foot": {
+          "First interdigital web space of foot": [],
+          "Second interdigital web space of foot": [],
+          "Third interdigital web space of foot": [],
+          "Lateral interdigital web space of foot": []
+        }
+      },
+      "Sole of foot": {
+        "Plantar surface of forefoot": [],
+        "Arch of foot": [],
+        "Heel": []
+      },
+      "Toes": {
+        "Great toe": {
+          "Proximal phalanx of great toe": [],
+          "Distal phalanx of great toe": {
+            "Paronychium of great toe": [],
+            "Nail of great toe": {
+              "Nail bed of great toe": []
+            },
+            "Pad of great toe": []
+          }
+        },
+        "Second toe": {
+          "Proximal phalanx of second toe": [],
+          "Middle phalanx of second toe": [],
+          "Distal phalanx of second toe": {
+            "Paronychium of second toe": [],
+            "Nail of second toe": {
+              "Nail bed of second toe": []
+            },
+            "Pad of second toe": []
+          }
+        },
+        "Third toe": {
+          "Proximal phalanx of third toe": [],
+          "Middle phalanx of third toe": [],
+          "Distal phalanx of third toe": {
+            "Paronychium of third toe": [],
+            "Nail of third toe": {
+              "Nail bed of third toe": []
+            },
+            "Pad of third toe": []
+          }
+        },
+        "Fourth toe": {
+          "Proximal phalanx of fourth toe": [],
+          "Middle phalanx of fourth toe": [],
+          "Distal phalanx of fourth toe": {
+            "Paronychium of fourth toe": [],
+            "Nail of fourth toe": {
+              "Nail bed of fourth toe": []
+            },
+            "Pad of fourth toe": []
+          }
+        },
+        "Fifth toe": {
+          "Proximal phalanx of fifth toe": [],
+          "Middle phalanx of fifth toe": [],
+          "Distal phalanx of fifth toe": {
+            "Paronychium of fifth toe": [],
+            "Nail of fifth toe": {
+              "Nail bed of fifth toe": []
+            },
+            "Pad of fifth toe": []
+          }
+        }
+      }
+    }
+  },
+  "Anogenital region": {
+    "Vulva": {
+      "Labium majus": [],
+      "Labium minus": [],
+      "Clitoris": [],
+      "Frenulum of labia minora": [],
+      "Vaginal introitus": []
+    },
+    "Penis": {
+      "Root of penis": [],
+      "Body of penis": [],
+      "Glans penis": {
+        "Penile urethral meatus": []
+      },
+      "Prepuce": {
+        "Outer surface of prepuce": [],
+        "Inner surface of prepuce": [],
+        "Coronal sulcus of penis": [],
+        "Frenulum of penis": []
+      }
+    },
+    "Scrotum": [],
+    "Perianal region": {
+      "Anus": [],
+      "Intergluteal cleft": [],
+      "Perineum": []
+    },
+    "Perigenital region": {
+      "Inguinocrural fold": [],
+      "Suprapubic area": []
+    }
+  }
+};
