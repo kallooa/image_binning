@@ -221,6 +221,7 @@ current_pt_index = 0;
     }
     console.log(data_json);
     data_json.PatientID = categories[current_pt_index];
+    data_json.user = username;
     //var blob = new Blob([JSON.stringify(data_json)], {type: "text/plain;charset=utf-8"});
     //saveAs(blob, username+"_data_"+document.getElementById('nav_indicator').innerText+"_"+Date()+".txt");
     dataEmit = JSON.stringify(data_json);
@@ -274,11 +275,11 @@ menu = [{
 					       //playerSpriteX += 10;.
 					       console.log('right key pressed');
 					       
-					       if(categoryImgCounter < allImgNames.length) {$('.iv-close')[0].click(); viewer.show('imgs/'+allImgNames[categoryImgCounter]); categoryImgCounter += 1; console.log(categoryImgCounter,allImgNames[categoryImgCounter]);}
+					       if(categoryImgCounter + 1 < allImgNames.length) {categoryImgCounter += 1; $('.iv-close')[0].click(); viewer.show('imgs/'+allImgNames[categoryImgCounter]); console.log(categoryImgCounter,allImgNames[categoryImgCounter]);}
 					       
 					   }else if (key == 37) {	
 					   		console.log('left key pressed');
-					       if(categoryImgCounter > -1) {$('.iv-close')[0].click(); viewer.show('imgs/'+allImgNames[categoryImgCounter]); categoryImgCounter -= 1; console.log(categoryImgCounter,allImgNames[categoryImgCounter]);}
+					       if(categoryImgCounter-1 > -1)  {categoryImgCounter -= 1; $('.iv-close')[0].click(); viewer.show('imgs/'+allImgNames[categoryImgCounter]); console.log(categoryImgCounter,allImgNames[categoryImgCounter]);}
 					   }
 					}
      })

@@ -221,6 +221,9 @@ current_pt_index = 0;
     }
     console.log(data_json);
     data_json.PatientID = categories[current_pt_index];
+    data_json.user = username;
+    ts = new Date();
+    data_json.timestamp = ts.toString(); 
     //var blob = new Blob([JSON.stringify(data_json)], {type: "text/plain;charset=utf-8"});
     //saveAs(blob, username+"_data_"+document.getElementById('nav_indicator').innerText+"_"+Date()+".txt");
     dataEmit = JSON.stringify(data_json);
