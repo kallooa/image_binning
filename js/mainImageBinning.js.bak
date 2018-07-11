@@ -3,7 +3,6 @@ var imgFiles;
 var imgFiles_bk;
 var current_images;
 function navBack() {
-		data_json = {};
     if (current_pt_index > 0) {
         $('#content').find('img').remove();
         setTimeout(function() {
@@ -27,7 +26,6 @@ function navBack() {
 }
 
 function navForward() {
-		data_json = {};
     if (current_pt_index < categories.length) {
         $('#content').find('img').remove();
         setTimeout(function() {
