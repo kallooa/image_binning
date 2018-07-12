@@ -18,7 +18,7 @@
       <script type="text/javascript" src="/js/contextMenu.js"></script>
       <link href="/css/contextMenu.css"  rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="/js/hashes.min.js"></script>
-      <script src="js/socket.io.js"></script>
+      <script src="js/socket.io.min.js"></script>
 
    </head>
    <body>
