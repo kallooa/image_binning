@@ -26,6 +26,9 @@ function navBack() {
 			placeImages(current_images);
 		}, 200);
 	}
+	$('.dropzone').remove();
+	category_counter = 0;
+	addFirstDropzone();
 }
 
 function navForward() {
@@ -51,6 +54,9 @@ function navForward() {
 
 		}, 200);
 	}
+	$('.dropzone').remove();
+	category_counter = 0;
+	addFirstDropzone();
 }
 
 function placeImages(imgs) {
@@ -233,7 +239,7 @@ $(document).ready(function() {
 
 	menu = [{
 		name: 'delete',
-		img: 'public/img/close.png',
+		img: 'img/close.png',
 		title: 'delete button',
 		fun: function (event) {
 

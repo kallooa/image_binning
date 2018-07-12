@@ -26,6 +26,9 @@ function navBack() {
 			placeImages(current_images);
 		}, 200);
 	}
+	$('.dropzone').remove();
+	category_counter = 1;
+	addFirstDropzone();
 }
 
 function navForward() {
@@ -51,6 +54,9 @@ function navForward() {
 
 		}, 200);
 	}
+	$('.dropzone').remove();
+	category_counter = 1;
+	addFirstDropzone();
 }
 
 function placeImages(imgs) {
@@ -96,7 +102,7 @@ $(document).ready(function() {
 	id = SHA256.hex(num1);
 	if (id != '22167355cff64913077bb69aa8a1ca4d7f80442050d5c18a08598b2f0fa17d93') {
 		alert('Access Denied!');
-		//window.location.replace("http://isicdataupload.com/imageBinning/");
+		window.location.replace("http://isicdataupload.com/imageBinning/");
 	}
 
 	$('#category1-dropzone').find('input')[0].addEventListener("change", function(title){
@@ -233,7 +239,7 @@ $(document).ready(function() {
 
 	menu = [{
 		name: 'delete',
-		img: 'public/img/close.png',
+		img: 'img/close.png',
 		title: 'delete button',
 		fun: function (event) {
 
