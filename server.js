@@ -32,6 +32,7 @@ var surveyStorage = db.collection('anatomy_survey');
 var imageBinningData = db.collection('imageBinningData');
 var anatomy_users = db.collection('anatomy_users');
 var anatomy_presurvey = db.collection('anatomy_presurvey');
+var dx_survey = db.collection('dx_survey');
 var jsonexport = require('jsonexport');
 var datasetinfo = db.collection('datasetInfo');
 var path = require('path');
@@ -39,7 +40,8 @@ var fs = require('fs');
 
 app.set('port', port); //PORT IS HERE
 //app.use(express.static(path.join(__dirname, 'public')));
-app.use(serveStatic(path.join(__dirname, 'public')));
+app.use(serveStatic(path.join(__dirname, 'public')));
+
 
 //app.use(express.directory('public/imgs'));
 //app.use(express.static('public/imgs'));
@@ -79,6 +81,12 @@ function _getUserProgress(st, callback) { //return data for particular requested
     {"user_email": st},
     {'anatomic':1, '_id':0}
     ).toArray(function(err, docs) {
+        callback(docs);
+    });
+}
+
+function _getUserProgressDx(st, callback) { //return data for particular requested lesion number
+    dx_survey.find({"user":st}).sort({boxNum:-1}).limit(1).toArray(function(err, docs) {
         callback(docs);
     });
 }
@@ -141,6 +149,15 @@ io.on("connection", function(socket) {
         });
     });
 
+    socket.on("requestUserProgressDx", function(user_email) {
+        console.log('requesting progress for user: ', user_email);
+        _getUserProgressDx(user_email, function(res) {
+            user_data = res;
+            console.log(user_data);
+            socket.emit('returnUserProgressDx', user_data);
+        });
+    });
+
     socket.on("dataFromUser", function(data) {
         console.log('user requests JSON');
         easyStorage.insert(data);
@@ -155,6 +172,12 @@ io.on("connection", function(socket) {
     socket.on("SendAnatomyUserData", function(data) {
         console.log('user sends: ', data);
         anatomy_users.insert(data);
+    });
+
+    socket.on("saveDxSurveyData", function(data) {
+        data = JSON.parse(data);
+        console.log('user sends: ', data);
+        dx_survey.insert(data);
     });
 
     socket.on("SendAnatomyPreSurveyData", function(data) {

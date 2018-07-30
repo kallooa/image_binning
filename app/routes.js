@@ -57,6 +57,12 @@ module.exports = function(app, passport) {
 		res.render('anatomysurvey.ejs', { message: req.flash('surveyMessage') });
 	});
 
+	app.get('/dxSurvey', function(req, res) {
+
+		// render the page and pass in any flash data if it exists
+		res.render('dxsurvey.ejs', { message: req.flash('surveyMessage') });
+	});
+
 	app.get('/anatomysurvey', function(req, res) {
 
 		// render the page and pass in any flash data if it exists

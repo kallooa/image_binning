@@ -1,0 +1,88 @@
+.box {
+	border: black;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 20px;
+    margin: 6px;
+    height: auto;
+    position: relative;
+}
+
+.boxTitle {
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	background-color: lightblue;
+	height: 30px;
+	color: blue;
+    text-align: center;
+    padding: 20px 10px;
+	font-family: sans-serif;
+	font-weight: 200;
+	font-size: 16px;
+}
+
+.boxContent {
+	height: auto;
+	padding: 50px 10px;
+    text-indent: -20px;
+    margin-left: 20px;
+	font-family: sans-serif;
+	font-weight: 200;
+}
+
+.boxBottom {
+	height: 30px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	position: absolute;
+	bottom: 5px;
+}
+
+.acceptButton {
+    width: 100px;
+    color: black;
+    font-family: Helvetica;
+    padding: 6px 0px;
+    margin: auto;
+    background-color: lightgreen;
+    cursor: pointer;
+}
+
+.acceptButton:hover {
+	cursor: pointer;
+}
+
+#inner {
+	display: flex;
+	flex-wrap: wrap;
+	width: -webkit-fill-available;
+}
+
+#title {
+	font-size: 40px;
+	font-family: sans-serif;
+	font-weight: 200;
+	text-align: center;
+	margin: 20px 30px;
+}
+
+#separator {
+	border: gray;
+    border-style: solid;
+    border-width: 1px;
+    margin: 20px 0;
+}
+
+.x-tick {
+	color: red;
+	font-size: 14pt;
+}
+
+.x-tick:hover {
+	color:red;
+	font-weight: 900;
+	cursor: pointer;
+}
