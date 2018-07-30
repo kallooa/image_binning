@@ -114,6 +114,13 @@ io.on("connection", function(socket) {
         the_data = JSON.stringify(JSON.parse(contents));
         socket.emit("returnJSON2", the_data);
     });
+
+    socket.on("requestDxJSON", function(data) {
+        console.log('user sends: ', data);
+        contents = fs.readFileSync("public/libs/dxSurvey/data.json")
+        the_data = JSON.stringify(JSON.parse(contents));
+        socket.emit("returnDxJSON", the_data);
+    });
     
     socket.on("imageBinningData", function(data) {
         the_data = JSON.parse(data);

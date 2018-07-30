@@ -89,18 +89,23 @@ function activateButtons() {
 }
 $(document).ready(function(){
 	socket = io();
-	useremail = prompt("Enter your email address: ");
-	socket.emit("requestUserProgressDx", useremail);
-	socket.on("returnUserProgressDx",  function(progress) {
-            userProgress = progress[0]['boxNum'] + 1;
-            alert("Please begin with Box " + userProgress);
-    });
-	for (var i=0; i<data.length; i++) {
-		createBox(i);
-		populateBox(i);
-		if (i == data.length-1) {
-			activateButtons();
-		}
-	}
+	socket.emit("requestDxJSON", "request");
+	socket.on("returnDxJSON",  function(jsonData) {
+		data = JSON.parse(jsonData);
 	
+		useremail = prompt("Enter your email address: ");
+		socket.emit("requestUserProgressDx", useremail);
+		socket.on("returnUserProgressDx",  function(progress) {
+	            userProgress = progress[0]['boxNum'] + 1;
+	            alert("Please begin with Box " + userProgress);
+	    });
+
+		for (var i=0; i<data.length; i++) {
+			createBox(i);
+			populateBox(i);
+			if (i == data.length-1) {
+				activateButtons();
+			}
+		}
+	});
 })
