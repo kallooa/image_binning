@@ -58,7 +58,8 @@
 #inner {
 	display: flex;
 	flex-wrap: wrap;
-	width: -webkit-fill-available;
+	width: 50%;
+    margin: 0 auto;
 }
 
 #title {
@@ -67,6 +68,10 @@
 	font-weight: 200;
 	text-align: center;
 	margin: 20px 30px;
+}
+
+#downloadLinks {
+	text-align: center;
 }
 
 #separator {

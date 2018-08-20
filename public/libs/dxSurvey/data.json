@@ -76,7 +76,10 @@
         "LevelB": "Melanocytic nevus",
         "LevelC": [
             "Nevus, Acral (not falling into one of the other categories); Specify site:___",
-            "Nevus, Special site nevus (genital, breast, axillary; not falling into one of the other categories); Specify site:___",
+            "Nevus, Special site nevus (genital)",
+            "Nevus, Special site nevus (breast)", 
+            "Nevus, Special site nevus (axillary)",
+            "Nevus, Special site nevus (not falling into one of the other categories); Specify site:___",
             "Nevus, Recurrent / persistent",
             "Nevus, Halo",
             "Nevus, Balloon cell",
@@ -132,7 +135,10 @@
             "Clear cell acanthoma (syn: Pale cell acanthoma)",
             "Large cell acanthoma",
             "Porokeratosis",
-            "More options: Epidermolytic acanthoma; Warty dyskeratoma; Acantholytic acanthoma; Melanoacanthoma",
+            "More options: Epidermolytic acanthoma",
+            "More options: Warty dyskeratoma",
+            "More options: Acantholytic acanthoma",
+            "More options: Melanoacanthoma",
             "Other; Specify:_________"
         ]
     },
@@ -159,8 +165,13 @@
         "LevelA": "Benign",
         "LevelB": "Adnexal epithelial proliferations, Follicular / Infundibular",
         "LevelC": [
-            "Other subtypes, part 1: Pilomatricoma; Tricholemmoma; Trichofolliculoma; Pilar sheath acanthoma",
-            "Other subtypes, part 2: Tumor of follicular infundibulum; Nevus comedonicus; Other, specify:_______________"
+            "Other subtypes, part 1: Pilomatricoma",
+            "Other subtypes, part 1: Tricholemmoma",
+            "Other subtypes, part 1: Trichofolliculoma",
+            "Other subtypes, part 1: Pilar sheath acanthoma",
+            "Other subtypes, part 2: Tumor of follicular infundibulum",
+            "Other subtypes, part 2: Nevus comedonicus",
+            "Other, specify:_______________"
         ]
     },
     {
@@ -172,7 +183,10 @@
             "Sebaceous adenoma",
             "Sebaceoma",
             "Nevus sebaceus",
-            "Others: Fordyce spots / Montgomery tubercles; Steatocystoma; Fibrofolliculoma / trichodiscoma; Other, specify:____"
+            "Others: Fordyce spots / Montgomery tubercles",
+            "Others: Steatocystoma",
+            "Others: Fibrofolliculoma / trichodiscoma",
+            "Other, specify:____"
         ]
     },
     {
@@ -183,9 +197,17 @@
             "Syringoma",
             "Poroma",
             "Hidrocystoma / cystadenoma",
-            "Other subtype, part 1:  Hidradenoma; Spiradenoma; Cylindoma;  mixed tumor (chondroid syringioma)",
-            "Other subtype, part 2: Syringocystadenoma papilliferum; Hidradenoma papilliferum; Tubular adenoma",
-            "Other subtype, part 3: Syringofibroadenoma; Supernumerary nipple; Fibroadenoma; Myoepithelioma",
+            "Other subtype, part 1:  Hidradenoma",
+            "Other subtype, part 1: Spiradenoma", 
+            "Other subtype, part 1: Cylindoma", 
+            "Other subtype, part 1: mixed tumor (chondroid syringioma)",
+            "Other subtype, part 2: Syringocystadenoma papilliferum",
+            "Other subtype, part 2: Hidradenoma papilliferum",
+            "Other subtype, part 2: Tubular adenoma",
+            "Other subtype, part 3: Syringofibroadenoma",
+            "Other subtype, part 3: Supernumerary nipple",
+            "Other subtype, part 3: Fibroadenoma",
+            "Other subtype, part 3: Myoepithelioma",
             "Other specific subtype, please specify:___________"
         ]
     },
@@ -324,7 +346,9 @@
             "Neurofibroma",
             "Granular cell tumor",
             "Schwannoma",
-            "Other subtype: Dermal nerve sheath myxoma; perineurioma; Other, specify:___________"
+            "Other subtype: Dermal nerve sheath myxoma",
+            "Other subtype: perineurioma", 
+            "Other, specify:___________"
         ]
     },
     {
@@ -403,7 +427,10 @@
             "Melanoma in situ, NOS",
             "Melanoma in situ, Lentigo maligna type / Melanoma in situ on chronically sun-exposed skin",
             "Melanoma in situ, Acral / Acral-lentiginous",
-            "Melanoma in situ, Mucosal (Specify site: Lip, Oral mucosa, Genital, other:_____)",
+            "Melanoma in situ, Mucosal (Lip)", 
+            "Melanoma in situ, Mucosal (Oral mucosa)", 
+            "Melanoma in situ, Mucosal (Genital)",
+            "Melanoma in situ, Mucosal other:_____",
             "Melanoma in situ, Superficial spreading",
             "Melanoma in situ, recurrent / persistent",
             "Melanoma in situ, other type, specify:__________"
@@ -425,7 +452,10 @@
             "Melanoma Invasive, Pigmented Spindle cell nevus like (melanoma predominantly resembling Reed's nevus)",
             "Melanoma Invasive, Blue nevus-like",
             "Melanoma Invasive, Recurrent / persistent",
-            "Melanoma Invasive, Mucosal (Specify site: Lip, Oral mucosa, Genital, other:_____)",
+            "Melanoma Invasive, Mucosal (Lip)", 
+            "Melanoma Invasive, Mucosal (Oral mucosa)", 
+            "Melanoma Invasive, Mucosal (Genital)", 
+            "Melanoma Invasive, Mucosal other:_____",
             "Melanoma Invasive, Heavily pigmented melanoma (resembling epithelioid blue nevus or melanoma in animals)",
             "Melanoma Invasive, Other subtype, specify:__________"
         ]
@@ -524,7 +554,9 @@
         "LevelA": "Malignant",
         "LevelB": "Adnexal epithelial proliferations, Follicular",
         "LevelC": [
-            "Others: matrical / pilomatrical carcinoma; proliferating trichilemmal Ca.; other_______ (specify)"
+            "Others: matrical / pilomatrical carcinoma",
+            "Others: proliferating trichilemmal Ca.",
+            "Other_______ (specify)"
         ]
     },
     {
@@ -549,8 +581,14 @@
         "LevelA": "Malignant",
         "LevelB": "Adnexal epithelial proliferations, Apocrine / Eccrine",
         "LevelC": [
-            "Other subtype, part 1: Apocrine Ca; Tubular Ca; Malignant mixed tumor; Porocarcinoma",
-            "Other subtype, part 2: Hidradenocarcinoma; Mucinous Ca; Digital papillary Ca; Adenoid cystic Ca",
+            "Other subtype, part 1: Apocrine Ca",
+            "Other subtype, part 1: Tubular Ca",
+            "Other subtype, part 1: Malignant mixed tumor",
+            "Other subtype, part 1: Porocarcinoma",
+            "Other subtype, part 2: Hidradenocarcinoma"
+            "Other subtype, part 2: Mucinous Ca",
+            "Other subtype, part 2: Digital papillary Ca",
+            "Other subtype, part 2: Adenoid cystic Ca",
             "Other subtype, part 3: Adnexal adenocarcinoma arising in association with spiradenoma / cylindroma /spiradenocylindroma",
             "Other specific subtype, please specify:___________",
             "Adnexal adenocarcinoma, specific subtype not specified"
