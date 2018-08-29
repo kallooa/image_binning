@@ -15,6 +15,8 @@ function createBox(num) {
 	div3.className = "boxContent";
 	div3.id = "boxContent"+num;
 	$('#box'+num).append(div3);
+
+
 	var div4 = document.createElement('div');
 	div4.className = "boxBottom";
 	div4.id = "boxBottom"+num;
@@ -25,6 +27,9 @@ function createBox(num) {
 	div5.num = toString(num);
 	div5.innerText = "Complete";
 	$('#boxBottom'+num).append(div5);
+
+
+
 }
 //fill box with relevant data
 function populateBox(num) {
@@ -38,6 +43,37 @@ function populateBox(num) {
 		contentString = contentString + "<p id='"+id_string+"-row' status='agree' comment=' '> - <span id='" + id_string + "-text'>"+ data[num]["LevelC"][i] + "</span><span class='x-tick' id='"+ id_string +"-tick'>  &times; </span>" + "</p>";
 	}
 	$('#boxContent'+num)[0].innerHTML = contentString;
+	var addButton = document.createElement('div');
+	addButton.className = "addButtons";
+	addButton.id = "addButton"+num;
+	addButton.innerText = "Add Entry";
+	$('#boxTitle'+num).after(addButton);
+
+	var addButtonC = document.createElement('div');
+	addButtonC.className = "commentButtons";
+	addButtonC.id = "commentButton"+num;
+	addButtonC.innerText = "Add Comment";
+	$('#boxTitle'+num).after(addButtonC);
+
+	$('#addButton'+num).click(function(){
+		var box = document.createElement('input'); 
+		box.type = "text"; 
+		box.id = "additionalBox"+num;
+		//var br = document.createElement('br');
+
+		$('#boxContent'+num).append(box);
+
+	});
+	$('#commentButton'+num).click(function(){
+		var box = document.createElement('textarea'); 
+		box.rows = "4";
+		box.cols = "30"; 
+		//var br = document.createElement('br');
+		box.id = "commentBox"+num;
+		$('#boxContent'+num).append(box);
+
+	});
+
 }
 function activateButtons() {
 	var tickIds = $('.x-tick');
@@ -67,15 +103,24 @@ function activateButtons() {
 		$('#'+acceptButtons[i].id).click(function(){
 			//console.log(this);
 			var boxNum = parseInt($(this).parent().parent()[0].id.replace('box', ''));
-			var boxContentChildren = $('#boxContent'+boxNum).children();
+			var boxContentChildren = $('#boxContent'+boxNum).children().filter('p');
+
+			var boxContentChildrenAdditions = $('#boxContent'+boxNum).children().filter('input, textarea');
 			//console.log(boxContentChildren);
 			var numChildren = boxContentChildren.length;
 			var dataStr = '{ "user": "' + useremail + '", "timestamp": "' + new Date() + '", "boxNum": ' +(boxNum+1) + ',';
 			//console.log(dataStr);
 			for (var i = 0; i<numChildren; i++) {
-				dataStr = dataStr + '"' + boxContentChildren[i].id.replace('-row', '') + '": {"status": "' + boxContentChildren[i].attributes.status.value + '", "comment": "' + boxContentChildren[i].attributes.comment.value + '" } '
-				if (i != numChildren-1) { dataStr = dataStr + ","}
+				dataStr = dataStr + '"' + boxContentChildren[i].id.replace('-row', '') + '": {"status": "' + boxContentChildren[i].attributes.status.value + '", "comment": "' + boxContentChildren[i].attributes.comment.value + '"';
+
+				//if (i != numChildren-1) { dataStr = dataStr + ","}
+				dataStr += '}, ';
 			}
+
+			for (var j=0; j<boxContentChildrenAdditions.length; j++) {
+				dataStr += '"addition' + (j+1) + '":"' + boxContentChildrenAdditions[j].value + '"';
+				if (j != boxContentChildrenAdditions.length-1) { dataStr = dataStr + ","}
+			} 
 			dataStr = dataStr + "}"; //this needs to be sent to database
 			console.log(dataStr);
 			socket.emit('saveDxSurveyData', dataStr);

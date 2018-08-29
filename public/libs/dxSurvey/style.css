@@ -8,6 +8,74 @@
     position: relative;
 }
 
+textarea {
+	margin: 0 0 5px 5px;
+}
+
+input {
+	margin: 0 0 5px 5px;
+}
+
+.addButtons {
+    float: left;
+    /* position: absolute; */
+    /* padding-left: 10px; */
+    /* top: 0; */
+    padding: 5px;
+    margin-left: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.addButtons:hover {
+    float: left;
+    /* position: absolute; */
+    /* padding-left: 10px; */
+    /* top: 0; */
+    padding: 5px;
+    margin-left: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    margin-top: 5px;
+}
+
+.commentButtons {
+    float: right;
+    /* position: absolute; */
+    /* padding-left: 10px; */
+    /* top: 0; */
+    padding: 5px;
+    margin-right: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.commentButtons:hover {
+    float: right;
+    /* position: absolute; */
+    /* padding-left: 10px; */
+    /* top: 0; */
+    padding: 5px;
+    margin-right: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    margin-top: 5px;
+}
+
 .boxTitle {
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
