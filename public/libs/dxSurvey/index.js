@@ -56,12 +56,23 @@ function populateBox(num) {
 	$('#boxTitle'+num).after(addButtonC);
 
 	$('#addButton'+num).click(function(){
+		randId = Math.floor(Math.random() * 999);
+		var holder = document.createElement('div');
+		holder.id = "additionalBox"+randId+"Container";
 		var box = document.createElement('input'); 
 		box.type = "text"; 
-		box.id = "additionalBox"+num;
+		box.id = "additionalBox"+randId;
 		//var br = document.createElement('br');
-
-		$('#boxContent'+num).append(box);
+		holder.append(box);
+		var entryRemoveButton = document.createElement('span');
+		entryRemoveButton.id = "additionalBox"+randId+"Remove";
+		entryRemoveButton.innerHTML = "&times;";
+		entryRemoveButton.className = 'x-tick';
+		holder.append(entryRemoveButton);
+		$('#boxContent'+num).append(holder);
+		$("#additionalBox"+randId+"Remove").click(function(){
+			$('#additionalBox'+randId+"Container").remove();
+		});
 
 	});
 	$('#commentButton'+num).click(function(){
