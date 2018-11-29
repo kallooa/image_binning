@@ -91,21 +91,32 @@ function activateButtons() {
 	var iters = tickIds.length;
 	for (var i = 0; i<iters; i++){
 		$('#' + tickIds[i].id).click(function(){
-			var textId = this.id.replace('-tick', '-text');
-			$('#' + textId)[0].style = "text-decoration: line-through; text-decoration-color: red;";
-			x = document.createElement('input');
-			x.type = 'text';
-			x.class = 'userComment';
-			x.id = this.id.replace('-tick', '-comment');
-			console.log(this.id.replace('-tick', '-row'));
-			$('#' + this.id.replace('-tick', '-row'))[0].attributes.status.value = 'disagree';
-			$(x).on('input', function(){
-				$('#' + this.id.replace('-comment', '-row'))[0].attributes.comment.value = this.value;
-				//console.log(this);
-			});
-			var y = document.createElement('div');
-			$(y).append(x);
-			$('#' + this.id.replace('-tick', '-row')).append(y);
+			console.log(this.id);
+			commentExists = $.find('#'+this.id.replace('-tick', '-comment'));
+			if(commentExists.length != 0) {
+				var textId = this.id.replace('-tick', '-text');
+				console.log('#'+this.id.replace('-tick', '-comment'));
+				$('#'+this.id.replace('-tick', '-comment')).remove();
+				$('#' + textId)[0].style = "text-decoration: none; text-decoration-color: none;";
+
+			} else {
+				var textId = this.id.replace('-tick', '-text');
+				$('#' + textId)[0].style = "text-decoration: line-through; text-decoration-color: red;";
+				x = document.createElement('input');
+				x.type = 'text';
+				x.class = 'userComment';
+				x.id = this.id.replace('-tick', '-comment');
+				console.log(this.id.replace('-tick', '-row'));
+				$('#' + this.id.replace('-tick', '-row'))[0].attributes.status.value = 'disagree';
+				$(x).on('input', function(){
+					$('#' + this.id.replace('-comment', '-row'))[0].attributes.comment.value = this.value;
+					//console.log(this);
+				});
+				var y = document.createElement('div');
+				$(y).append(x);
+				$('#' + this.id.replace('-tick', '-row')).append(y);
+			}
+
 		});
 	}
 	var acceptButtons = $('.acceptButton');
@@ -125,10 +136,16 @@ function activateButtons() {
 				dataStr = dataStr + '"' + boxContentChildren[i].id.replace('-row', '') + '": {"status": "' + boxContentChildren[i].attributes.status.value + '", "comment": "' + boxContentChildren[i].attributes.comment.value + '"';
 
 				//if (i != numChildren-1) { dataStr = dataStr + ","}
-				dataStr += '}, ';
+				if (i < numChildren-1) {
+					dataStr += '}, ';
+				} else {
+					dataStr += '}';
+				}
+				
 			}
-
+			console.log('j', boxContentChildrenAdditions);
 			for (var j=0; j<boxContentChildrenAdditions.length; j++) {
+				console.log(j, boxContentChildrenAdditions);
 				dataStr += '"addition' + (j+1) + '":"' + boxContentChildrenAdditions[j].value + '"';
 				if (j != boxContentChildrenAdditions.length-1) { dataStr = dataStr + ","}
 			} 
@@ -136,10 +153,13 @@ function activateButtons() {
 			console.log(dataStr);
 			socket.emit('saveDxSurveyData', dataStr);
 
-			$('#boxTitle'+boxNum)[0].style.background = "lightgreen";
-			tmpp = document.createElement('p');
-			tmpp.innerText = 'Completed!';
-			$('#boxTitle'+boxNum).append(tmpp);
+			if ($('#boxTitle'+boxNum).children().length==0) {
+				$('#boxTitle'+boxNum)[0].style.background = "lightgreen";
+				tmpp = document.createElement('p');
+				tmpp.innerText = 'Completed!';
+				$('#boxTitle'+boxNum).append(tmpp);
+			}
+
 		})
 	}
 }
