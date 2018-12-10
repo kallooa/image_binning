@@ -184,4 +184,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+	$('#saveProgress').click(function(){
+		alert("Thank you for contributing. Please remember to use the same email address when you return to resume your progress.")
+	})
 })

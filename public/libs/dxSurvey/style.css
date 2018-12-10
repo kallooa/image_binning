@@ -16,6 +16,14 @@ input {
 	margin: 0 0 5px 5px;
 }
 
+#saveProgress {
+    float: right;
+    border: 1px solid black;
+    padding: 10px 5px;
+    background-color: lightblue;
+    border-radius: 10px;
+}
+
 .addButtons {
     float: left;
     /* position: absolute; */
